@@ -125,7 +125,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st","-e", "tmux", NULL };
-static const char *chromium[] = { "chromium", NULL };
+static const char *chromium[] = { "chromium", "--new-window", "file:///home/rhom/MEGA/vimwiki_html/index.html" };
 
 
 static const Key keys[] = {
@@ -135,6 +135,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,             XK_p,      spawn,          SHCMD("clipmenu") },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = chromium } },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("flameshot gui") },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("mail") },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("thunar") },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("discord") },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("okular") },
