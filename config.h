@@ -35,10 +35,14 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {"st", "-n", "Ypad", "-g", "120x60", "-e", "tmux", NULL };
+// const char *spcmd1[] = {"st", "-n", "Ypad", "-g", "120x60", "-e", "tmux", NULL };
 const char *spcmd2[] = {"st", "-n", "Upad", "-g", "120x60", NULL };
 const char *spcmd3[] = {"x48", NULL };
 const char *spcmd4[] = {"okular", "--name", "OkPad"};
+// const char *spcmd5[] = {"s", "chromium","--new-window", "file:///home/rhom/MEGA/vimwiki/public_html/diary/diary.html#", NULL };
+// const char *spcmd5[] = {"st", "-n", "Opad", "-g", "120x60", NULL };
+const char *spcmd1[] = {"st", "-n", "Ypad", "-g", "120x60", "-e", "tmux", "new-session", "-s", "test", NULL };
+const char *spcmd5[] = {"st", "-n", "Opad", "-g", "120x60", "-e", "tmux", "new-session", "-s", "test", NULL };
 // const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "nnn", NULL };
 // const char *spcmd3[] = {"keepassxc", NULL };
 // const char *spcmd4[] = {"st", "-n", "calendar", "-g", "144x60", "calendar", NULL };
@@ -49,6 +53,7 @@ static Sp scratchpads[] = {
 	{"Upad",      NULL},
 	{"x48",      NULL},
     {"OkPad",     spcmd4},
+	{"Opad",      spcmd5},
 	// {"spranger",    spcmd2},
 	// {"keepassxc",   spcmd3},
 	// {"calendar",   spcmd4},
@@ -59,26 +64,25 @@ static Sp scratchpads[] = {
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-     *
-	 */
+static const Rule rules[] = { // xprop(1):
+	//  WM_CLASS(STRING) = instance, class
+	//  WM_NAME(STRING) = title
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Firefox",      NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "st-256color",  NULL,       "pamix",       1 << 8,       0,           1 },
- 	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
- 	{ "MEGAsync",     NULL,       NULL,       0,            1,           -1,        1518,7,50,50,        -1 },
- 	{ "Mullvad VPN",     NULL,       NULL,       0,            1,           -1,        1596,19,320,568,        -1 },
-	{ "Gimp",         NULL,       NULL,       0,            1,           -1,        -1,-1,-1,-1,        -1 },
-	{ "Master PDF Editor 5",         NULL,       "Set Destination",       0,            1,           -1,        -1,-1,-1,-1,        -1  },
-	{ "zoom",         NULL,       NULL,       0,            1,            2,        -1,-1,-1,-1,        -1  },
-	{ NULL,		  "Ypad",		NULL,		SPTAG(0),		1,			 -1,        982,121,-1,-1,        -1  },
-	// { NULL,		  "Upad",		NULL,		SPTAG(1),		1,			 -1,        -1,-1,-1,-1,        -1  },
-	{ NULL,		  "x48",		NULL,		SPTAG(2),		1,			 -1,        1548,50,-1,-1,        -1  },
-	{ NULL,		  "OkPad",		NULL,		SPTAG(3),		1,			 -1,        -1,-1,-1,-1,        -1  },
-	{ NULL,		  "steam_proton",         NULL,	    SPTAG(2),	      1,	   -1,        1548,50,330,732,        -1  },
+
+	{ "Firefox",             NULL,       NULL,       1 << 8,       0,           -1                                           },
+	{ "st-256color",         NULL,       "pamix",       1 << 8,       0,           1                                         },
+ 	{ "MEGAsync",            NULL,              NULL,       0,            1,           -1,        1518,7,50,50,        -1    },
+ 	{ "Mullvad VPN",         NULL,              NULL,       0,            1,           -1,        1596,19,320,568,        -1 },
+	{ "Gimp",                NULL,              NULL,       0,            1,           -1,        -1,-1,-1,-1,        -1     },
+	{ "Master PDF Editor 5", NULL, "Set Destination",       0,            1,           -1,        -1,-1,-1,-1,        -1     },
+	{ "zoom",                NULL,              NULL,       0,            1,            2,        -1,-1,-1,-1,        -1     },
+	{ NULL,                  "Ypad",		    NULL,		SPTAG(0),		1,			 -1,        982,121,-1,-1,        -1 },
+	{ NULL,                  "Opad",		    NULL,		SPTAG(4),		1,			 -1,        982,121,-1,-1,        -1 },
+	{ NULL,                  "x48",		        NULL,		SPTAG(2),		1,			 -1,        1548,50,-1,-1,        -1 },
+	{ NULL,                  "OkPad",		    NULL,		SPTAG(3),		1,			 -1,        -1,-1,-1,-1,        -1   },
+	{ NULL,                  "steam_proton",    NULL,	    SPTAG(2),	      1,	   -1,        1548,50,330,732,        -1 },
+	// { "diary - Chromium",    "chromium",		NULL,		SPTAG(4),		1,			 -1,        -1,-1,-1,-1,        -1   },
+
 };
 
 /* layout(s) */
@@ -133,7 +137,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("j4-dmenu-desktop") },
 	{ MODKEY|ControlMask,             XK_p,      spawn,          SHCMD("clipmenu") },
-	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = chromium } },
+	// { MODKEY|ShiftMask,             XK_w,      spawn,          {.v = chromium } },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("chromup") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("flameshot gui") },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("mail") },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("thunar") },
@@ -157,8 +162,8 @@ static const Key keys[] = {
 	// { MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
 	// { MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
 	// { MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
-	{ MODKEY,                       XK_o,      incrogaps,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_o,      incrogaps,      {.i = -1 } },
+	// { MODKEY,                       XK_o,      incrogaps,      {.i = +1 } },
+	// { MODKEY|ShiftMask,             XK_o,      incrogaps,      {.i = -1 } },
 	// { MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
 	// { MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
 	// { MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
@@ -184,6 +189,7 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,            			XK_u,  	   togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			XK_y,  	   togglescratch,  {.ui = 3 } },
+	{ MODKEY,            			XK_o,  	   togglescratch,  {.ui = 4 } },
 	// { 0,            			XF86XK_Calculator,	   togglescratch,  {.ui = 2 } },
 	{ MODKEY,           XK_minus,      toggleview,     {.ui = 1 << 4} },
 	{ MODKEY,            			XK_equal,	   togglescratch,  {.ui = 2 } },
