@@ -136,7 +136,8 @@ static const char *chromium[] = { "chromium", "--new-window", "file:///home/rhom
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	// { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          SHCMD("dmenu_run_history") },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("j4-dmenu-desktop") },
 	{ MODKEY|ControlMask,             XK_p,      spawn,          SHCMD("clipmenu") },
 	// { MODKEY|ShiftMask,             XK_w,      spawn,          {.v = chromium } },
