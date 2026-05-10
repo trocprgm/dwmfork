@@ -8,6 +8,11 @@ Complete patch list
  - pertag
  - adjacenttag
  - scratchpads
+ - dynamic scratchpads
+
+
+lol 5-18-24
+
 
 Buildsesh#1 on 11-25-24
 Bruh I am so fucking tweak tired

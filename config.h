@@ -41,15 +41,15 @@ const char *spcmd3[] = {"x48", NULL };
 const char *spcmd4[] = {"okular", "--name", "OkPad"};
 // const char *spcmd5[] = {"s", "chromium","--new-window", "file:///home/rhom/MEGA/vimwiki/public_html/diary/diary.html#", NULL };
 // const char *spcmd5[] = {"st", "-n", "Opad", "-g", "120x60", NULL };
-const char *spcmd1[] = {"st", "-n", "Ypad", "-g", "120x60", "-e", "tmux", "new-session", "-s", "test", NULL };
-const char *spcmd5[] = {"st", "-n", "Opad", "-g", "120x60", "-e", "tmux", "new-session", "-s", "test", NULL };
+const char *spcmd1[] = {"st", "-n", "Upad", "-g", "120x60", "-e", "tmux", "new-session", "-s", "Upad", NULL };
+const char *spcmd5[] = {"st", "-n", "Opad", "-g", "120x60", "-e", "tmux", "new-session", "-s", "Opad", NULL };
 // const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "nnn", NULL };
 // const char *spcmd3[] = {"keepassxc", NULL };
 // const char *spcmd4[] = {"st", "-n", "calendar", "-g", "144x60", "calendar", NULL };
 // const char *spcmd5[] = {"st", "-n", "weather", "-g", "144x41", "weather", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
-	{"Ypad",      spcmd1},
+	{"Upad",      spcmd1},
 	{"Upad",      NULL},
 	{"x48",      NULL},
     {"OkPad",     spcmd4},
@@ -76,7 +76,7 @@ static const Rule rules[] = { // xprop(1):
 	{ "Gimp",                NULL,              NULL,       0,            1,           -1,        -1,-1,-1,-1,        -1     },
 	{ "Master PDF Editor 5", NULL, "Set Destination",       0,            1,           -1,        -1,-1,-1,-1,        -1     },
 	{ "zoom",                NULL,              NULL,       0,            1,            2,        -1,-1,-1,-1,        -1     },
-	{ NULL,                  "Ypad",		    NULL,		SPTAG(0),		1,			 -1,        982,121,-1,-1,        -1 },
+	{ NULL,                  "Upad",		    NULL,		SPTAG(0),		1,			 -1,        982,121,-1,-1,        -1 },
 	{ NULL,                  "Opad",		    NULL,		SPTAG(4),		1,			 -1,        982,121,-1,-1,        -1 },
 	{ NULL,                  "x48",		        NULL,		SPTAG(2),		1,			 -1,        1548,50,-1,-1,        -1 },
 	{ NULL,                  "OkPad",		    NULL,		SPTAG(3),		1,			 -1,        -1,-1,-1,-1,        -1   },
@@ -191,13 +191,22 @@ static const Key keys[] = {
 	{ MODKEY,            			XK_y,  	   togglescratch,  {.ui = 3 } },
 	{ MODKEY,            			XK_o,  	   togglescratch,  {.ui = 4 } },
 	// { 0,            			XF86XK_Calculator,	   togglescratch,  {.ui = 2 } },
-	{ MODKEY,           XK_minus,      toggleview,     {.ui = 1 << 4} },
+	// { MODKEY,           XK_minus,      toggleview,     {.ui = 1 << 4} },
 	{ MODKEY,            			XK_equal,	   togglescratch,  {.ui = 2 } },
 	// { MODKEY,            			XK_minus,	   togglescratch,  {.ui = 1 } },
     // { MODKEY|ShiftMask,             XK_minus,       tag,           {.ui = 1 } }, 
 	// { MODKEY,            			XK_x,	   togglescratch,  {.ui = 2 } },
 	// { MODKEY,            			XK_c,	   togglescratch,  {.ui = 3 } },
 	// { MODKEY,            			XK_w,	   togglescratch,  {.ui = 4 } },
+
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
+	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+    { MODKEY,                       XK_minus, scratchpad_show, {0} },
+    { MODKEY|ShiftMask,             XK_minus, scratchpad_hide, {0} },
+    { MODKEY,                       XK_equal,scratchpad_remove,{0} },
+
 	{ MODKEY,                       XK_m,  viewnext,       {0} },
 	{ MODKEY,                       XK_n,   viewprev,       {0} },
 	{ MODKEY|ShiftMask,             XK_m,  tagtonext,      {0} },
@@ -216,13 +225,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	// TAGKEYS(                        XK_minus,                      9)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
-	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
-	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
-    // { MODKEY,                       XK_minus, scratchpad_show, {0} },
-    // { MODKEY|ShiftMask,             XK_minus, scratchpad_hide, {0} },
-    // { MODKEY,                       XK_equal,scratchpad_remove,{0} },
 
 };
 
