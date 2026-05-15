@@ -144,7 +144,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("chromup") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("flameshot gui") },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("mail") },
-	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("thunar") },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("nemo") },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("discord") },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("okular") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
